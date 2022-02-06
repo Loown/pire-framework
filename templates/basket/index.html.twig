@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Basket index{% endblock %}
+
+{% block body %}
+    <h1>Basket index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Created_at</th>
+                <th>Is_paid</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for basket in baskets %}
+            <tr>
+                <td>{{ basket.id }}</td>
+                <td>{{ basket.createdAt ? basket.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ basket.isPaid ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('basket_show', {'id': basket.id}) }}">show</a>
+                    <a href="{{ path('basket_edit', {'id': basket.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Produits index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for basketProduct in basketProducts %}
+            <tr>
+                <td>{{ basketProduct.id }}</td>
+                <td>{{ basketProduct.product.id }}</td>
+                <td>{{ basketProduct.quantity }}</td>
+                {# <td>{{ basketProduct.added_at ? basketProduct.added_at|date('Y-m-d H:i:s') : '' }}</td> #}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('basket_new') }}">Create new</a> #}
+{% endblock %}
